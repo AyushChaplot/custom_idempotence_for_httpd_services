@@ -1,0 +1,15 @@
+- hosts: data_node
+  tasks:
+     
+     - name: Checking httpd installed or not 
+       command: "rpm -q httpd"
+       register: web
+       ignore_errors: yes 
+
+     - name: "Installing Httpd"
+       package:
+           name: httpd
+           state: present
+       when: web.rc !=0 
+           
+
